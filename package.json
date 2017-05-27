@@ -1,0 +1,9 @@
+{
+  "name": "collection-deep-merge",
+  "description": "Deep merge array of objects by passed key. Object with same key vals will merge together",
+  "main": "index.js",
+  "repository": "git@github.com:a-x-/collection-deep-merge.git",
+  "author": "Alex Mextner <alex@rocketguys.com>",
+  "version": "0.1.0",
+  "license": "MIT"
+}
