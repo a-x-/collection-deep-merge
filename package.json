@@ -8,5 +8,11 @@
   "license": "MIT",
   "dependencies": {
     "lodash.merge": "^4.6.0"
+  },
+  "scripts": {
+    "test": "ava"
+  },
+  "devDependencies": {
+    "ava": "^0.19.1"
   }
 }

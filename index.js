@@ -1,10 +1,11 @@
-const merge = require('lodash.merge')
+const merge = require('lodash.merge');
 
 /**
  * Find first index like indexOf does, but by `filter(value)` instead of by `value`
  * @param {Collection} arr
  * @returns {?Number} index
  */
+const findIndex =
 function findIndex (arr, filter) {
   let key = undefined;
   arr.forEach((val, key_) => key === undefined && filter(val, key) && (key = key_));
@@ -15,7 +16,10 @@ function findIndex (arr, filter) {
  * @example const mergeById = mergeCollectionsBy('id')
  * @example [{id:1}, {id:2, b:0}] + [{id:2, c:-1}, {id:3}] == [{id:1}, {id:2, b:0, c:-1}, {id:3}]
  */
-module.exports = function mergeCollectionsBy (key) {
+exports.mergeCollectionsBy =
+module.exports =
+exports.default =
+function mergeCollectionsBy (key) {
   /**
    * @param {Collection} c1
    * @param {Collection} c2
@@ -33,8 +37,16 @@ module.exports = function mergeCollectionsBy (key) {
     const c2Rest = c2.filter((_, key2) => !c2VisitedIdx[key2])
     return [].concat(updatedC1, c2Rest);
   };
-}
+};
 
 /**
  * @typedef {Array<Object>} Collection
  */
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+module.exports.findIndex =
+exports.findIndex =
+findIndex;
