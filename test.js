@@ -1,6 +1,11 @@
 import test from 'ava';
 import mergeCollectionsBy, { findIndex } from '.';
 
+test('require is ok', t => {
+  const mergeCollectionsBy_ = require('.');
+  t.is(typeof mergeCollectionsBy_, 'function');
+});
+
 test('create specialized instance', t => {
   t.is(typeof mergeCollectionsBy('a'), 'function');
 });
