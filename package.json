@@ -5,5 +5,8 @@
   "repository": "git@github.com:a-x-/collection-deep-merge.git",
   "author": "Alex Mextner <alex@rocketguys.com>",
   "version": "0.1.0",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "lodash.merge": "^4.6.0"
+  }
 }
