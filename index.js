@@ -7,6 +7,11 @@ const merge = require('lodash.merge');
  */
 const findIndex =
 function findIndex (arr, filter) {
+  if ('findIndex' in arr) {
+    const index = arr.findIndex(filter);
+    return index !== -1 ? index : undefined;
+  }
+
   let key = undefined;
   arr.forEach((val, key_) => key === undefined && filter(val, key) && (key = key_));
   return key;
