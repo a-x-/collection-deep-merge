@@ -36,7 +36,7 @@ function mergeCollectionsBy (key) {
       const index2 = findIndex(c2, item2 => item2[key] === item1[key]);
       c2VisitedIdx[index2] = true;
       return index2 !== undefined
-        ? merge(item1, c2[index2])
+        ? merge({}, item1, c2[index2])
         : item1;
     });
     const c2Rest = c2.filter((_, key2) => !c2VisitedIdx[key2])
