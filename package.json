@@ -11,9 +11,11 @@
   },
   "scripts": {
     "test": "ava",
+    "preversion": "npm test",
     "postversion": "git push && git push --tags && npm publish"
   },
   "devDependencies": {
-    "ava": "^0.19.1"
+    "ava": "^0.19.1",
+    "noyarn": "^0.2.4"
   }
 }

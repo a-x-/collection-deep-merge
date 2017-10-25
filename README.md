@@ -1,13 +1,27 @@
 # collection-deep-merge [![Build Status](https://travis-ci.org/a-x-/collection-deep-merge.svg?branch=master)](https://travis-ci.org/a-x-/collection-deep-merge)
 
+Merge arrays of objects by keys
+
 ## usage
+
+Look at [test.js](https://github.com/a-x-/collection-deep-merge/blob/master/test.js) for examples
 
 ```js
 const mergeById = mergeCollectionsBy('id')
 
-mergeById([{id:1}, {id:2, b:0}], [{id:2, c:-1}, {id:3}])
-// -> [{id:1}, {id:2, b:0, c:-1}, {id:3}]
+//
+// Deep merge object-items
+const list1 = [ { a: 1, b: { c: 1 } }, { a: 2, b: { d: 2 } } ];
+const list2 = [ { a: 1, b: { c: 3 } }, { a: 2, b: { c: 4 } } ];
+const merged = [ { a: 1, b: { c: 3 } }, { a: 2, b: { c: 4, d: 2 } } ];
 
-findIndex([{id:2, c:-1}, {id:3}], item2 => item2['id'] === 2);
-// -> 0
+mergeById(list, [ item ]) ==== merged // deep equal
+
+//
+// Merge item with a collection
+const list = [ { a: 1, b: 2 }, { a: 2, d: 4 } ];
+const item = { a: 1, c: 3 };
+const merged = [{ a: 1, b: 2, c: 3 }, { a: 2, d: 4 }]
+
+mergeById(list, [ item ]) ==== merged // deep equal
 ```
