@@ -1,7 +1,14 @@
-const mergeDeep = require('lodash.merge');
+'use strict'; // support node@4+
+
+const mergeDeep_ = require('lodash.merge');
+const mergeDeep = function (a, b) { return mergeDeep_({}, a, b); };
+const cmpVal = function (a, b) { return a !== undefined && a === b; };
 
 /**
+ * findIndex Polyfill.
+ *
  * Find first index like indexOf does, but by `filter(value)` instead of by `value`
+ *
  * @param {Collection} arr
  * @returns {?Number} index
  */
@@ -13,10 +20,10 @@ function findIndex (arr, filter) {
   }
 
   let key = undefined;
-  arr.forEach((val, key_) => key === undefined && filter(val, key) && (key = key_));
+  arr.forEach(function (val, key_) { return key === undefined && filter(val, key) && (key = key_); });
   return key;
 }
-const is = (a, b) => a !== undefined && (typeof a === 'object' && 'is' in a ? a.is(b) : a === b)
+
 
 /**
  * @example const mergeById = mergeCollectionsBy('id')
@@ -25,27 +32,27 @@ const is = (a, b) => a !== undefined && (typeof a === 'object' && 'is' in a ? a.
 exports.mergeCollectionsBy =
 module.exports =
 exports.default =
-function mergeCollectionsBy (key) {
+function mergeCollectionsBy (key, opts) {
+  const merge = opts && opts.merge || mergeDeep;
+  const is = opts && opts.is || cmpVal;
+
   /**
    * @param {Collection} c1
    * @param {Collection} c2
    * @returns {Collection}
    */
-  return (c1, c2) => {
-    const someItem = (c1 && c1[0] || c2 && c2[0]);
-    const merge = 'mergeDeep' in someItem ? (a, b) => a.mergeDeep(b) : (a, b) => mergeDeep({}, a, b);
-
+  return function mergeCollectionsByKey (c1, c2) {
     const c2VisitedIdx = {} // e.g. 42: true
-    const updatedC1 = c1.map(item1 => {
-      const index2 = findIndex(c2, item2 => is(item2[key], item1[key]));
+    const updatedC1 = c1.map(function (item1) {
+      const index2 = findIndex(c2, function (item2) { return is(item2[key], item1[key]); });
       c2VisitedIdx[index2] = true;
       return index2 !== undefined
         ? merge(item1, c2[index2])
         : item1;
     });
-    const c2Rest = c2.filter((_, key2) => !c2VisitedIdx[key2])
+    const c2Rest = c2.filter(function (_, key2) { return !c2VisitedIdx[key2]; })
     return updatedC1.concat(c2Rest);
-  };
+  }
 };
 
 /**
@@ -59,3 +66,12 @@ Object.defineProperty(exports, "__esModule", {
 module.exports.findIndex =
 exports.findIndex =
 findIndex;
+
+
+module.exports.mergeShallow =
+exports.mergeShallow =
+function (a, b) { return Object.assign({}, a, b); };
+
+module.exports.mergeDeep =
+exports.mergeDeep =
+mergeDeep;

@@ -1,5 +1,5 @@
 import test from 'ava';
-import mergeCollectionsBy, { findIndex } from '.';
+import mergeCollectionsBy, { findIndex, mergeShallow } from '.';
 
 const mergeById = mergeCollectionsBy('a')
 
@@ -71,4 +71,14 @@ test('join collections with no intersected keys', t => {
   const merged = [ { a: 1, b: 11 }, { a: 2, b: 12 }, { a: 3, b: 13 }, { a: 4, b: 14 } ];
 
   t.deepEqual(mergeById(list1, list2), merged);
+});
+
+test('shallow merger', t => {
+  const mergeShallowById = mergeCollectionsBy('a', { merge: mergeShallow });
+
+  const list1 = [ { a: 1, b: { c: 1 } }, { a: 2, b: { d: 2 } } ];
+  const list2 = [ { a: 1, b: { c: 3 } }, { a: 2, b: { c: 4 } } ];
+  const merged = [ { a: 1, b: { c: 3 } }, { a: 2, b: { c: 4 } } ];
+
+  t.deepEqual(mergeShallowById(list1, list2), merged);
 });
