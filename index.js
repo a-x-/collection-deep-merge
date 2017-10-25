@@ -40,7 +40,7 @@ function mergeCollectionsBy (key) {
         : item1;
     });
     const c2Rest = c2.filter((_, key2) => !c2VisitedIdx[key2])
-    return [].concat(updatedC1, c2Rest);
+    return updatedC1.concat(c2Rest);
   };
 };
 
