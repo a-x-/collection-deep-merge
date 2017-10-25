@@ -1,10 +1,10 @@
 # collection-deep-merge [![Build Status](https://travis-ci.org/a-x-/collection-deep-merge.svg?branch=master)](https://travis-ci.org/a-x-/collection-deep-merge)
 
-Merge arrays of objects by keys
+Merge arrays of objects by key.
 
 ## usage
 
-Look at [test.js](https://github.com/a-x-/collection-deep-merge/blob/master/test.js) for examples
+> Open [test.js](https://github.com/a-x-/collection-deep-merge/blob/master/test.js) with examples
 
 ```js
 const mergeById = mergeCollectionsBy('id')
