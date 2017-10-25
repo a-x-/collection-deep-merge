@@ -1,4 +1,5 @@
 import test from 'ava';
+import { Iterable, is, List, Map } from 'immutable'; // optional
 import mergeCollectionsBy, { findIndex } from '.';
 
 const mergeById = mergeCollectionsBy('a')
@@ -71,4 +72,38 @@ test('join collections with no intersected keys', t => {
   const merged = [ { a: 1, b: 11 }, { a: 2, b: 12 }, { a: 3, b: 13 }, { a: 4, b: 14 } ];
 
   t.deepEqual(mergeById(list1, list2), merged);
+});
+
+
+// add fast getter into immutable
+const accesor = new Proxy(Object.prototype, {
+  get: (target, property, receiver) => target.get(property),
+});
+Object.setPrototypeOf(Iterable.prototype, accesor);
+
+test('patch immutable', t => {
+  const map = Map({ id: 0 });
+
+  // use getters
+  t.is(map.id, 0);
+  t.is(map.get('id'), 0);
+  t.is(map.mergeDeep(Map({ a: 42 })).a, 42);
+});
+
+test('interoperable with immutable', t => {
+  const l1 = ([Map({ id: 1 }), Map({ id: 2 })]);
+  const updatedItem = Map({ id: 1, name: 'Deko Yuto', age: 121 });
+
+  const expected = ([
+      Map({ id: 1, name: 'Deko Yuto', age: 121 }),
+      Map({ id: 2 })
+  ]);
+
+  // use collection-deep-merge
+  // t.true(is(mergeById(l1, List([updatedItem])), expected));
+  const res = mergeById(l1, ([updatedItem]));
+  console.log('res', res, expected[0].id)
+  t.is(res[0].id, 1)
+  t.is(res[0].name, 'Deko Yuto')
+  t.is(res[1].id, 2)
 });
