@@ -19,7 +19,7 @@ function findIndex (arr, filter) {
     return index !== -1 ? index : undefined;
   }
 
-  let key = undefined;
+  var key = undefined;
   arr.forEach(function (val, key_) { return key === undefined && filter(val, key) && (key = key_); });
   return key;
 }
