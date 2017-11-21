@@ -1,8 +1,8 @@
 'use strict'; // support node@4+
 
-const mergeDeep_ = require('lodash.merge');
-const mergeDeep = function (a, b) { return mergeDeep_({}, a, b); };
-const cmpVal = function (a, b) { return a !== undefined && a === b; };
+var mergeDeep_ = require('lodash.merge');
+var mergeDeep = function (a, b) { return mergeDeep_({}, a, b); };
+var cmpVal = function (a, b) { return a !== undefined && a === b; };
 
 /**
  * findIndex Polyfill.
@@ -12,10 +12,10 @@ const cmpVal = function (a, b) { return a !== undefined && a === b; };
  * @param {Collection} arr
  * @returns {?Number} index
  */
-const findIndex =
+var findIndex =
 function findIndex (arr, filter) {
   if ('findIndex' in arr) {
-    const index = arr.findIndex(filter);
+    var index = arr.findIndex(filter);
     return index !== -1 ? index : undefined;
   }
 
@@ -33,8 +33,8 @@ exports.mergeCollectionsBy =
 module.exports =
 exports.default =
 function mergeCollectionsBy (key, opts) {
-  const merge = opts && opts.merge || mergeDeep;
-  const is = opts && opts.is || cmpVal;
+  var merge = opts && opts.merge || mergeDeep;
+  var is = opts && opts.is || cmpVal;
 
   /**
    * @param {Collection} c1
@@ -42,15 +42,15 @@ function mergeCollectionsBy (key, opts) {
    * @returns {Collection}
    */
   return function mergeCollectionsByKey (c1, c2) {
-    const c2VisitedIdx = {} // e.g. 42: true
-    const updatedC1 = c1.map(function (item1) {
-      const index2 = findIndex(c2, function (item2) { return is(item2[key], item1[key]); });
+    var c2VisitedIdx = {} // e.g. 42: true
+    var updatedC1 = c1.map(function (item1) {
+      var index2 = findIndex(c2, function (item2) { return is(item2[key], item1[key]); });
       c2VisitedIdx[index2] = true;
       return index2 !== undefined
         ? merge(item1, c2[index2])
         : item1;
     });
-    const c2Rest = c2.filter(function (_, key2) { return !c2VisitedIdx[key2]; })
+    var c2Rest = c2.filter(function (_, key2) { return !c2VisitedIdx[key2]; })
     return updatedC1.concat(c2Rest);
   }
 };
