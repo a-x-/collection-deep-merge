@@ -69,3 +69,28 @@ You should support followed api:
 ## Alternatives
 ### [array-join](https://github.com/iredchuk/array-join)
 collection-deep-merge like its `fullJoin` with deep item-objects merge
+
+### Map from ES6
+New native Map has all you need:
+- preserve order
+- O(1) access
+- iterable
+
+You can implement tiny union function (w/o deep items merging):
+```js
+function union(map1, map2) {
+  return new Map([...map1, ...map2]);
+}
+```
+
+or you can use the collection-deep-merge if you want to merge items deeply
+`O(n*m) + O(?)` complexity (`n*m` not so good; `?` stands for deep merge).
+```js
+import mergeArrays from 'collection-deep-merge';
+const mergeById = mergeArrays('id', { eq: (item1, item2) => {} });
+const mergeMapsById = (map1, map2) => {
+  mergeById([...map1], [...map2])
+};
+```
+
+or ... // todo: create `map-deep-union` library special for Maps with `O(n)+O(?)` complexity.
