@@ -57,7 +57,7 @@ const mergeShallowById = mergeCollectionsBy('id', { merge: mergeShallow });
 
 ### Nested collections
 You can implement custom merger based on
-`const { mergeDeep } = require('collection-deep-merge')``
+`const { mergeDeep } = require('collection-deep-merge')`
 with an especial behaviour on nested collections.
 
 You should support followed api:
@@ -65,3 +65,7 @@ You should support followed api:
 - merger is immutable
 - merger invokes with `(Object a, Object b)` args
 - merger returns `Object c`
+
+## Alternatives
+### [array-join](https://github.com/iredchuk/array-join)
+collection-deep-merge like its `fullJoin` with deep item-objects merge
