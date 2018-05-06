@@ -35,6 +35,7 @@ exports.default =
 function mergeCollectionsBy (key, opts) {
   var merge = opts && opts.merge || mergeDeep;
   var is = opts && opts.is || cmpVal;
+  var shouldPutNewToBottom = opts && opts.shouldPutNewToBottom || true;
 
   /**
    * @param {Collection} c1
@@ -51,7 +52,7 @@ function mergeCollectionsBy (key, opts) {
         : item1;
     });
     var c2Rest = c2.filter(function (_, key2) { return !c2VisitedIdx[key2]; })
-    return updatedC1.concat(c2Rest);
+    return shouldPutNewToBottom ? updatedC1.concat(c2Rest) : c2Rest.concat(updatedC1);
   }
 };
 
