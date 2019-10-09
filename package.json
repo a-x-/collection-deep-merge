@@ -10,12 +10,12 @@
     "lodash.merge": "^4.6.2"
   },
   "scripts": {
-    "test": "ava",
+    "test": "jest",
     "preversion": "npm test",
     "postversion": "git push && git push --tags && npm publish"
   },
   "devDependencies": {
-    "ava": "^0.19.1",
+    "jest": "^24.9.0",
     "noyarn": "^0.2.8"
   }
 }
