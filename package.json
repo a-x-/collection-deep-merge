@@ -7,7 +7,7 @@
   "version": "1.2.2",
   "license": "MIT",
   "dependencies": {
-    "lodash.merge": "^4.6.0"
+    "lodash.merge": "^4.6.2"
   },
   "scripts": {
     "test": "ava",
@@ -16,6 +16,6 @@
   },
   "devDependencies": {
     "ava": "^0.19.1",
-    "noyarn": "^0.2.4"
+    "noyarn": "^0.2.8"
   }
 }
