@@ -110,4 +110,6 @@ test('shouldPutNewToBottom', () => {
   expect(mergeByIdTop(list1, [{ id: 1 }])).toEqual(top);
   expect(mergeByIdBot(list1, [{ id: 1 }])).toEqual(bot);
   expect(mergeById(list1, [{ id: 1 }])).toEqual(bot);
+  // opts has no effect here
+  expect(mergeById(list1, [{ id: 1 }], { shouldPutNewToBottom: false })).toEqual(bot);
 });
